@@ -1,9 +1,8 @@
-hodan.io API connector for Phantom
+# Shodan.io API connector for Phantom
 
 This App for [Phantom security orchestrator](https://www.phantom.us/product.html) provides access to
 information from [Shodan.io](https://www.shodan.io).
 
-This app performs lookups against the Shodan.io search engine
 
 ## Suggested Use-Cases
 
