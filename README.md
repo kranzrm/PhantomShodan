@@ -34,10 +34,15 @@ Future areas of expansion include:
 ## Setup
 
 1. Download a [Phantom](https://www.phantom.us/product.html) appliance from Phantom Cyber.
-2. Obtain an API key from [Shodan.io](https://www.shodan.io). A free API key can be obtained from the Shodan.io website by registering and visiting your [account page](https://account.shodan.io)
-3. Select "Import App" from the *Administration / Apps* tab.
-   * Select the `shodan.tgz` file.
-   * Check "Replace an Existing app" if an older version is installed.
+2. Select "Import App" from the *Administration / Apps* tab.
+   * Select the `shodan.tgz` file
+   * Check "Replace an Existing app" if an older version is installed
+3. Obtain an API key from [Shodan.io](https://www.shodan.io). A free API key can be obtained from the Shodan.io website by registering and visiting your [account page](https://account.shodan.io)
+4. Configure the Shodan asset.  
+   * Product Vendor = "Shodan.io"
+   * Product Name  = "Shodan.io"
+   * Set the "Shodan API Key" field in the phantom "Asset Settings" tab
+5. Configure the `api_key` in the json files located in the `test_json` directory
 
 ## References
 
