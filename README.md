@@ -16,8 +16,8 @@ For Example:
 
 ## Current Actions
 
-* query ip - Query shodan for observed services for a given IP
-* query domain - Query shodan for observed services for a given fqdn
+* `query ip` - Query shodan for observed services for a given IP
+* `query domain` - Query shodan for observed services for a given fqdn
 
 ## Future Features
 
@@ -36,7 +36,7 @@ Future areas of expansion include:
 1. Download a [Phantom](https://www.phantom.us/product.html) appliance from Phantom Cyber.
 2. Obtain an API key from [Shodan.io](https://www.shodan.io). A free API key can be obtained from the Shodan.io website by registering and visiting your [account page](https://account.shodan.io)
 3. Select "Import App" from the *Administration / Apps* tab.
-   * Select the shodan.tgz file.
+   * Select the `shodan.tgz` file.
    * Check "Replace an Existing app" if an older version is installed.
 
 ## References
