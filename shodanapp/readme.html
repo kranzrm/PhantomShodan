@@ -1,0 +1,26 @@
+<p>This app performs lookups against the Shodan.io search engine</p>
+<h3>Suggested Use-cases</h3>
+<p>This app can be used to check whether or not a given IP address is listening given ports.  This allows us to gain information that is: credible, publicly accessible, and does not require a single packet to be sent to the target IP address.</p>
+<p>For Example:</p>
+<ul>
+  <li>For alerts about an inbound connection, phantom can validate whether or not the service is publicly accessible.</li>
+  <li>For alerts regarding outbound connections (irc, smtp, ntp, etc.) this can be used to verify whether or not the host is hosting that service and what service is listening on that port.</li>
+  <li>Perform reconnaissance on internet hosts</li>
+</ul>
+<h3>Future Features</h3>
+<p>Currently, this app performs a lookup against a domain or ip address for open ports and services.</p>
+<p>Future areas of expansion include:</p>
+<ul>
+  <li>Implement more specific checks to look for specific IP <i>and</i> Port</li>
+  <li>Implement checks to support IP ranges / CIDR blocks </li>
+  <li>Triggering on-demand scan for paid developer accounts</li>
+  <li>DNS forward and reverse resolution</li>
+  <li>Implement widgets (Webpage Thumbnails, etc.)</li>
+</ul>
+<h3>Requirement</h3>
+<p>In order to use this app, you must obtain an API key from Shodan.io. A free API key can be obtained from the Shodan.io website by registering and visiting your <a href="https://account.shodan.io">account page</a></p>
+<h3>References</h3>
+<ul>
+  <li>Shodan Developer Reference: <a href="https://developer.shodan.io/api">https://developer.shodan.io/api</a></li>
+  <li>Shodan Search Page: <a href="https://www.shodan.io">https://www.shodan.io</a></li>
+</ul>

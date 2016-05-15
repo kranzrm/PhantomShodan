@@ -1,0 +1,18 @@
+{"action":"test connectivity",
+"app_config":null,
+"asset_id":"5",
+"config":{
+        "api_key":"",
+        "appname":"shodan",
+        "ingest":{"start_time_epoch_utc":null},
+        "main_module":"shodan_connector.pyc"
+},
+"debug_level":3,
+"dec_key":"8",
+"identifier":"test_asset_connectivity",
+"ipc_version":1,
+"parameters": [],
+"phantom_version":"1.1.72",
+"type":"response"
+}
+

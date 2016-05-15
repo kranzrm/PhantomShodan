@@ -1,0 +1,16 @@
+{"action":"query_domain",
+"app_config":null,
+"asset_id":"5",
+"config":{
+        "api_key":"",
+        "ingest":{"start_time_epoch_utc":null},
+        "main_module":"shodan_connector.pyc"
+},
+"debug_level":3,
+"dec_key":"8",
+"identifier":"query_domain",
+"ipc_version":1,
+"parameters": [{"domain":"www.yahoo.com"}],
+"type":"response"
+}
+
