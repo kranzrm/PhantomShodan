@@ -42,7 +42,7 @@ Future areas of expansion include:
    * Product Vendor = "Shodan.io"
    * Product Name  = "Shodan.io"
    * Set the "Shodan API Key" field in the phantom "Asset Settings" tab
-5. Configure the `api_key` in the json files located in the `test_json` directory
+5. Configure the `api_key` in the json files located in the `test_json` directory (for CLI debugging)
 
 ## References
 
