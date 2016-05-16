@@ -1,7 +1,7 @@
 {
     "appid"       : "d0e7f2cb-2826-42e4-a4ae-2a2cbe64802c",
     "name"      : "Shodan",
-    "description" : "Shodan.io Investigation App",
+    "description" : "Shodan.io API connector",
     "publisher": "Ryan Kranz",
     "package_name": "phantom_shodan",
     "type": "information service",
