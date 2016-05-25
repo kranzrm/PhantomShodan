@@ -6,7 +6,7 @@
     "package_name": "phantom_shodan",
     "type": "information service",
     "license": "The GNU General Public License v3.0",
-    "main_module" : "shodan_connector.pyc",
+    "main_module" : "shodan_connector.py",
     "app_version": "1.0",
     "utctime_updated": "2016-05-15T04:20:36.000000Z",
     "product_vendor": "Shodan.io",
