@@ -104,10 +104,7 @@
             },
             {
               "data_path": "action_result.data.*.ip",
-              "data_type": "string",
-              "contains": [
-                "ip"
-              ]
+              "data_type": "string"
             },
             {
               "data_path": "action_result.summary.Results",
@@ -152,7 +149,8 @@
             {
               "data_path": "action_result.data.*.ip_str",
               "data_type": "string",
-              "map_info": "name"
+              "map_info": "name",
+               "contains": ["ip"]
             },
             {
               "data_path": "action_result.data.*._shodan.crawler",
