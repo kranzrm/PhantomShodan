@@ -42,7 +42,7 @@ class ShodanConnector(BaseConnector):
         try:
             r = requests.get(url, params=params)
         except Exception as e:
-            return result.set_status(phantom.APP_ERROR, SHODAN_ERR_SERVER_CONNECTION, e)
+            return (result.set_status(phantom.APP_ERROR, SHODAN_ERR_SERVER_CONNECTION, e), None)
 
         # The result object can be either self (i.e. BaseConnector) or ActionResult
         if (hasattr(result, 'add_debug_data')):
@@ -53,10 +53,10 @@ class ShodanConnector(BaseConnector):
         try:
             resp = r.json()
         except Exception as e:
-            return result.set_status(phantom.APP_ERROR, SHODAN_ERR_RESPONSE_IS_NOT_JSON, e)
+            return (result.set_status(phantom.APP_ERROR, SHODAN_ERR_RESPONSE_IS_NOT_JSON, e), None)
 
         if 'error' in resp:
-            return result.set_status(phantom.APP_ERROR, resp['error'])
+            return (result.set_status(phantom.APP_ERROR, resp['error']), resp)
 
         # Usually should not come here _and_ has encountered an HTTP error, but still look for errors
         if (r.status_code != requests.codes.ok):  # pylint: disable=E1101
@@ -90,6 +90,9 @@ class ShodanConnector(BaseConnector):
         endpoint = "shodan/host/search"
 
         ret_val, shodan_response = self._query_shodan(endpoint, action_result, params)
+
+        if (not ret_val):
+            return action_result.get_status()
 
         if (not shodan_response):
             # There was an error, no results
@@ -126,6 +129,9 @@ class ShodanConnector(BaseConnector):
 
         ret_val, shodan_response = self._query_shodan(endpoint, action_result)
 
+        if (not ret_val):
+            return action_result.get_status()
+
         if (not shodan_response):
             # There was an error, no results
             action_result.append_to_message(SHODAN_ERR_QUERY)
@@ -142,7 +148,7 @@ class ShodanConnector(BaseConnector):
             'results': len(data),
             'country': shodan_response.get('country_name', ''),
             'open_ports': ", ".join(str(x) for x in shodan_response.get('ports', [])),
-            'hostnames': ", ".join(shodan_response.get('hostnames'))
+            'hostnames': ", ".join(shodan_response.get('hostnames', []))
         }
 
         action_result.update_summary(summary)
