@@ -144,12 +144,17 @@ class ShodanConnector(BaseConnector):
 
         # Create the summary as a normal dictionary, it helps in parsing it from the playbooks
         # easier. The BaseConnector does the job of Capitalizing the dictionary
+        open_ports = shodan_response.get('ports')
+        open_ports = ", ".join(str(x) for x in shodan_response.get('ports', [])) if open_ports else None
+
+        hostnames = shodan_response.get('hostnames')
+        hostnames = ", ".join(str(x) for x in shodan_response.get('hostnames', [])) if hostnames else None
+
         summary = {
             'results': len(data),
             'country': shodan_response.get('country_name', ''),
-            'open_ports': ", ".join(str(x) for x in shodan_response.get('ports', [])),
-            'hostnames': ", ".join(shodan_response.get('hostnames', []))
-        }
+            'open_ports': open_ports,
+            'hostnames': hostnames}
 
         action_result.update_summary(summary)
 
