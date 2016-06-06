@@ -34,7 +34,16 @@ def on_start(container):
     for ip in destinationAddress:
         parameters.append({"ip": ip,})
 
-    phantom.act("query ip", parameters=parameters, assets=["shodan"]) # callback=query_ip1_cb
+    phantom.act("query ip", parameters=parameters, assets=["shodan"])
+
+    destinationDomains = set(phantom.collect(container, 'artifact:*.cef.destinationDnsDomain'))
+
+    parameters = []
+
+    for domain in destinationDomains:
+        parameters.append({"domain": domain,})
+
+    phantom.act("query domain", parameters=parameters, assets=["shodan"])
 
     return
 
@@ -51,4 +60,3 @@ def on_finish(container, summary):
                     # app_run_id = app_run['app_run_id']
                     # action_results = phantom.get_action_results(app_run_id=app_run_id)
     return
-
