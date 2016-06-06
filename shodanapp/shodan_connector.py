@@ -103,6 +103,21 @@ class ShodanConnector(BaseConnector):
 
         matches = shodan_response.get('matches', [])
 
+        if (not matches):
+            self.save_progress("Did not find any info on the domain, doing a complete search")
+            params = {'query': "{0}".format(target)}
+            ret_val, shodan_response = self._query_shodan(endpoint, action_result, params)
+
+            if (not ret_val):
+                return action_result.get_status()
+
+            if (not shodan_response):
+                # There was an error, no results
+                action_result.append_to_message(SHODAN_ERR_QUERY)
+                return action_result.get_status()
+
+            matches = shodan_response.get('matches', [])
+
         for match in matches:
             action_result.add_data(match)
 
