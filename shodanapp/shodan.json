@@ -107,19 +107,19 @@
               "data_type": "string"
             },
             {
-              "data_path": "action_result.summary.Results",
+              "data_path": "action_result.summary.results",
               "data_type": "numeric"
             },
             {
-              "data_path": "action_result.summary.Hostnames",
+              "data_path": "action_result.summary.hostnames",
               "data_type": "string"
             },
             {
-              "data_path": "action_result.summary.Country",
+              "data_path": "action_result.summary.country",
               "data_type": "string"
             },
             {
-              "data_path": "action_result.summary.Open Ports",
+              "data_path": "action_result.summary.open_ports",
               "data_type": "string"
             },
             {
