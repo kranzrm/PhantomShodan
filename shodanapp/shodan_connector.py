@@ -130,7 +130,7 @@ class ShodanConnector(BaseConnector):
 
         action_result.update_summary(summary)
 
-        return action_result.set_status(phantom.APP_SUCCESS)
+        return self.set_status_save_progress(phantom.APP_SUCCESS, "Query Successfull")
 
     def _handle_query_ip(self, param):
 
@@ -173,7 +173,7 @@ class ShodanConnector(BaseConnector):
 
         action_result.update_summary(summary)
 
-        return action_result.set_status(phantom.APP_SUCCESS)
+        return self.set_status_save_progress(phantom.APP_SUCCESS, "Query Successfull")
 
     def handle_action(self, param):
 
