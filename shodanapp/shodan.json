@@ -7,7 +7,7 @@
     "type": "information service",
     "license": "The GNU General Public License v3.0",
     "main_module" : "shodan_connector.py",
-    "app_version": "1.0.2",
+    "app_version": "1.0.3",
     "utctime_updated": "2016-05-26T04:20:36.000000Z",
     "product_vendor": "Shodan.io",
     "product_name": "Shodan.io",
