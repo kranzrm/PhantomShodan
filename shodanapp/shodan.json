@@ -1,16 +1,16 @@
 {
     "appid"       : "d0e7f2cb-2826-42e4-a4ae-2a2cbe64802c",
     "name"      : "Shodan",
-    "description" : "Shodan.io API connector",
+    "description" : "This app implements investigative actions like <b>query ip</b> and <b>query domain</b> to get information from the shodan search engine.",
     "publisher": "Ryan Kranz",
     "package_name": "phantom_shodan",
-    "type": "information service",
+    "type": "information",
     "license": "The GNU General Public License v3.0",
     "main_module" : "shodan_connector.py",
-    "app_version": "1.0.3",
+    "app_version": "1.0.4",
     "utctime_updated": "2016-05-26T04:20:36.000000Z",
-    "product_vendor": "Shodan.io",
-    "product_name": "Shodan.io",
+    "product_vendor": "Shodan",
+    "product_name": "Shodan",
     "product_version_regex": ".*",
     "min_phantom_version": "1.0.240",
     "logo": "shodan_logo.png",
@@ -123,10 +123,6 @@
               "data_type": "string"
             },
             {
-              "data_path": "action_result.data.*.asn",
-              "data_type": "string"
-            },
-            {
               "data_path": "action_result.data.*.isp",
               "data_type": "string"
             },
@@ -135,15 +131,7 @@
               "data_type": "string"
             },
             {
-              "data_path": "action_result.data.*.data",
-              "data_type": "string"
-            },
-            {
               "data_path": "action_result.data.*.hash",
-              "data_type": "numeric"
-            },
-            {
-              "data_path": "action_result.data.*.port",
               "data_type": "numeric"
             },
             {
@@ -175,27 +163,11 @@
               "data_type": "string"
             },
             {
-              "data_path": "action_result.data.*.location.country_code3",
-              "data_type": "string"
-            },
-            {
-              "data_path": "action_result.data.*.timestamp",
-              "data_type": "string"
-            },
-            {
-              "data_path": "action_result.data.*.transport",
-              "data_type": "string"
-            },
-            {
               "data_path": "action_result.status",
               "data_type": "string"
             },
             {
               "data_path": "action_result.message",
-              "data_type": "string"
-            },
-            {
-              "data_path": "action_result.parameter.ip",
               "data_type": "string"
             },
             {
@@ -231,245 +203,249 @@
           "title": "Shodan Domain Details"
         },
         "output": [
-    {
-      "data_path": "action_result.parameter.domain",
-      "data_type": "string",
-      "contains": [
-        "domain"
-      ],
-      "column_name": "Domain",
-      "column_order": 0
-    },
-    {
-      "data_path": "action_result.data.*.ip_str",
-      "data_type": "string",
-      "contains": ["ip"],
-      "column_name": "IP Address",
-      "column_order": 1
-    },
-    {
-      "data_path": "action_result.data.*.transport",
-      "data_type": "string",
-      "column_name": "Protocol",
-      "column_order": 2
-    },
-    {
-      "data_path": "action_result.data.*.port",
-      "data_type": "numeric",
-      "contains": ["port"],
-      "column_name": "Port",
-      "column_order": 3
-    },
-    {
-      "data_path": "action_result.data.*._shodan.module",
-      "data_type": "string",
-      "column_name": "Service",
-      "column_order": 4
-    },
-    {
-      "data_path": "action_result.data.*.data",
-      "data_type": "string",
-      "column_name": "Data",
-      "column_order": 5
-    },
-    {
-      "data_path": "action_result.data.*.asn",
-      "data_type": "string",
-      "contains": ["asn"],
-      "column_name": "ASN",
-      "column_order": 6
-    },
-    {
-      "data_path": "action_result.data.*.timestamp",
-      "data_type": "string",
-      "column_name": "Time Discovered",
-      "column_order": 7
-    },
-    {
-      "data_path": "action_result.data.*.total",
-      "data_type": "numeric"
-    },
-    {
-      "data_path": "action_result.data.*.ip",
-      "data_type": "numeric"
-    },
-    {
-      "data_path": "action_result.data.*.isp",
-      "data_type": "string"
-    },
-    {
-      "data_path": "action_result.data.*.org",
-      "data_type": "string"
-    },
-    {
-      "data_path": "action_result.data.*.hash",
-      "data_type": "numeric"
-    },
-    {
-      "data_path": "action_result.data.*.isakmp.flags.commit",
-      "data_type": "boolean"
-    },
-    {
-      "data_path": "action_result.data.*.isakmp.flags.encryption",
-      "data_type": "boolean"
-    },
-    {
-      "data_path": "action_result.data.*.isakmp.flags.authentication",
-      "data_type": "boolean"
-    },
-    {
-      "data_path": "action_result.data.*.isakmp.length",
-      "data_type": "numeric"
-    },
-    {
-      "data_path": "action_result.data.*.isakmp.msg_id",
-      "data_type": "string"
-    },
-    {
-      "data_path": "action_result.data.*.isakmp.version",
-      "data_type": "string"
-    },
-    {
-      "data_path": "action_result.data.*.isakmp.next_payload",
-      "data_type": "numeric"
-    },
-    {
-      "data_path": "action_result.data.*.isakmp.exchange_type",
-      "data_type": "numeric"
-    },
-    {
-      "data_path": "action_result.data.*.isakmp.initiator_spi",
-      "data_type": "string"
-    },
-    {
-      "data_path": "action_result.data.*.isakmp.responder_spi",
-      "data_type": "string"
-    },
-    {
-      "data_path": "action_result.data.*._shodan.crawler",
-      "data_type": "string"
-    },
-    {
-      "data_path": "action_result.data.*.domains.*.",
-      "data_type": "string"
-    },
-    {
-      "data_path": "action_result.data.*.location.city",
-      "data_type": "string"
-    },
-    {
-      "data_path": "action_result.data.*.location.dma_code",
-      "data_type": "numeric"
-    },
-    {
-      "data_path": "action_result.data.*.location.latitude",
-      "data_type": "numeric"
-    },
-    {
-      "data_path": "action_result.data.*.location.area_code",
-      "data_type": "numeric"
-    },
-    {
-      "data_path": "action_result.data.*.location.longitude",
-      "data_type": "numeric"
-    },
-    {
-      "data_path": "action_result.data.*.location.postal_code",
-      "data_type": "string"
-    },
-    {
-      "data_path": "action_result.data.*.location.region_code",
-      "data_type": "string"
-    },
-    {
-      "data_path": "action_result.data.*.location.country_code",
-      "data_type": "string"
-    },
-    {
-      "data_path": "action_result.data.*.location.country_name",
-      "data_type": "string"
-    },
-    {
-      "data_path": "action_result.data.*.location.country_code3",
-      "data_type": "string"
-    },
-    {
-      "data_path": "action_result.data.*.hostnames.*.",
-      "data_type": "string"
-    },
-    {
-      "data_path": "action_result.data.*.ssh.kex.unused",
-      "data_type": "numeric"
-    },
-    {
-      "data_path": "action_result.data.*.ssh.kex.languages.*.",
-      "data_type": "string"
-    },
-    {
-      "data_path": "action_result.data.*.ssh.kex.kex_follows",
-      "data_type": "boolean"
-    },
-    {
-      "data_path": "action_result.data.*.ssh.kex.kex_algorithms.*.",
-      "data_type": "string"
-    },
-    {
-      "data_path": "action_result.data.*.ssh.kex.mac_algorithms.*.",
-      "data_type": "string"
-    },
-    {
-      "data_path": "action_result.data.*.ssh.kex.encryption_algorithms.*.",
-      "data_type": "string"
-    },
-    {
-      "data_path": "action_result.data.*.ssh.kex.compression_algorithms.*.",
-      "data_type": "string"
-    },
-    {
-      "data_path": "action_result.data.*.ssh.kex.server_host_key_algorithms.*.",
-      "data_type": "string"
-    },
-    {
-      "data_path": "action_result.data.*.ssh.key",
-      "data_type": "string"
-    },
-    {
-      "data_path": "action_result.data.*.ssh.mac",
-      "data_type": "string"
-    },
-    {
-      "data_path": "action_result.data.*.ssh.type",
-      "data_type": "string"
-    },
-    {
-      "data_path": "action_result.data.*.ssh.cipher",
-      "data_type": "string"
-    },
-    {
-      "data_path": "action_result.data.*.ssh.fingerprint",
-      "data_type": "string"
-    },
-    {
-      "data_path": "action_result.data.*.info",
-      "data_type": "string"
-    },
-    {
-      "data_path": "action_result.status",
-      "data_type": "string"
-    },
-    {
-      "data_path": "action_result.message",
-      "data_type": "string"
-    },
-    {
-      "data_path": "summary.total_objects",
-      "data_type": "numeric"
-    },
-    {
-      "data_path": "summary.total_objects_successful",
-      "data_type": "numeric"
-    }
-  ],
+          {
+            "data_path": "action_result.parameter.domain",
+            "data_type": "string",
+            "contains": [
+              "domain"
+            ],
+            "column_name": "Domain",
+            "column_order": 0
+          },
+          {
+            "data_path": "action_result.data.*.ip_str",
+            "data_type": "string",
+            "contains": ["ip"],
+            "column_name": "IP Address",
+            "column_order": 1
+          },
+          {
+            "data_path": "action_result.data.*.transport",
+            "data_type": "string",
+            "column_name": "Protocol",
+            "column_order": 2
+          },
+          {
+            "data_path": "action_result.data.*.port",
+            "data_type": "numeric",
+            "contains": ["port"],
+            "column_name": "Port",
+            "column_order": 3
+          },
+          {
+            "data_path": "action_result.data.*._shodan.module",
+            "data_type": "string",
+            "column_name": "Service",
+            "column_order": 4
+          },
+          {
+            "data_path": "action_result.data.*.data",
+            "data_type": "string",
+            "column_name": "Data",
+            "column_order": 5
+          },
+          {
+            "data_path": "action_result.data.*.asn",
+            "data_type": "string",
+            "contains": ["asn"],
+            "column_name": "ASN",
+            "column_order": 6
+          },
+          {
+            "data_path": "action_result.data.*.timestamp",
+            "data_type": "string",
+            "column_name": "Time Discovered",
+            "column_order": 7
+          },
+          {
+            "data_path": "action_result.data.*.total",
+            "data_type": "numeric"
+          },
+          {
+            "data_path": "action_result.data.*.ip",
+            "data_type": "numeric"
+          },
+          {
+            "data_path": "action_result.data.*.isp",
+            "data_type": "string"
+          },
+          {
+            "data_path": "action_result.data.*.org",
+            "data_type": "string"
+          },
+          {
+            "data_path": "action_result.data.*.hash",
+            "data_type": "numeric"
+          },
+          {
+            "data_path": "action_result.data.*.isakmp.flags.commit",
+            "data_type": "boolean"
+          },
+          {
+            "data_path": "action_result.data.*.isakmp.flags.encryption",
+            "data_type": "boolean"
+          },
+          {
+            "data_path": "action_result.data.*.isakmp.flags.authentication",
+            "data_type": "boolean"
+          },
+          {
+            "data_path": "action_result.data.*.isakmp.length",
+            "data_type": "numeric"
+          },
+          {
+            "data_path": "action_result.data.*.isakmp.msg_id",
+            "data_type": "string"
+          },
+          {
+            "data_path": "action_result.data.*.isakmp.version",
+            "data_type": "string"
+          },
+          {
+            "data_path": "action_result.data.*.isakmp.next_payload",
+            "data_type": "numeric"
+          },
+          {
+            "data_path": "action_result.data.*.isakmp.exchange_type",
+            "data_type": "numeric"
+          },
+          {
+            "data_path": "action_result.data.*.isakmp.initiator_spi",
+            "data_type": "string"
+          },
+          {
+            "data_path": "action_result.data.*.isakmp.responder_spi",
+            "data_type": "string"
+          },
+          {
+            "data_path": "action_result.data.*._shodan.crawler",
+            "data_type": "string"
+          },
+          {
+            "data_path": "action_result.data.*.domains.*.",
+            "data_type": "string"
+          },
+          {
+            "data_path": "action_result.data.*.location.city",
+            "data_type": "string"
+          },
+          {
+            "data_path": "action_result.data.*.location.dma_code",
+            "data_type": "numeric"
+          },
+          {
+            "data_path": "action_result.data.*.location.latitude",
+            "data_type": "numeric"
+          },
+          {
+            "data_path": "action_result.data.*.location.area_code",
+            "data_type": "numeric"
+          },
+          {
+            "data_path": "action_result.data.*.location.longitude",
+            "data_type": "numeric"
+          },
+          {
+            "data_path": "action_result.data.*.location.postal_code",
+            "data_type": "string"
+          },
+          {
+            "data_path": "action_result.data.*.location.region_code",
+            "data_type": "string"
+          },
+          {
+            "data_path": "action_result.data.*.location.country_code",
+            "data_type": "string"
+          },
+          {
+            "data_path": "action_result.data.*.location.country_name",
+            "data_type": "string"
+          },
+          {
+            "data_path": "action_result.data.*.location.country_code3",
+            "data_type": "string"
+          },
+          {
+            "data_path": "action_result.data.*.hostnames.*.",
+            "data_type": "string"
+          },
+          {
+            "data_path": "action_result.data.*.ssh.kex.unused",
+            "data_type": "numeric"
+          },
+          {
+            "data_path": "action_result.data.*.ssh.kex.languages.*.",
+            "data_type": "string"
+          },
+          {
+            "data_path": "action_result.data.*.ssh.kex.kex_follows",
+            "data_type": "boolean"
+          },
+          {
+            "data_path": "action_result.data.*.ssh.kex.kex_algorithms.*.",
+            "data_type": "string"
+          },
+          {
+            "data_path": "action_result.data.*.ssh.kex.mac_algorithms.*.",
+            "data_type": "string"
+          },
+          {
+            "data_path": "action_result.data.*.ssh.kex.encryption_algorithms.*.",
+            "data_type": "string"
+          },
+          {
+            "data_path": "action_result.data.*.ssh.kex.compression_algorithms.*.",
+            "data_type": "string"
+          },
+          {
+            "data_path": "action_result.data.*.ssh.kex.server_host_key_algorithms.*.",
+            "data_type": "string"
+          },
+          {
+            "data_path": "action_result.data.*.ssh.key",
+            "data_type": "string"
+          },
+          {
+            "data_path": "action_result.data.*.ssh.mac",
+            "data_type": "string"
+          },
+          {
+            "data_path": "action_result.data.*.ssh.type",
+            "data_type": "string"
+          },
+          {
+            "data_path": "action_result.data.*.ssh.cipher",
+            "data_type": "string"
+          },
+          {
+            "data_path": "action_result.data.*.ssh.fingerprint",
+            "data_type": "string"
+          },
+          {
+            "data_path": "action_result.data.*.info",
+            "data_type": "string"
+          },
+          {
+            "data_path": "action_result.status",
+            "data_type": "string"
+          },
+          {
+            "data_path": "action_result.message",
+            "data_type": "string"
+          },
+          {
+            "data_path": "action_result.summary.results",
+            "data_type": "numeric"
+          },
+          {
+            "data_path": "summary.total_objects",
+            "data_type": "numeric"
+          },
+          {
+            "data_path": "summary.total_objects_successful",
+            "data_type": "numeric"
+          }
+        ],
         "versions":"EQ(*)"
       }
     ]
