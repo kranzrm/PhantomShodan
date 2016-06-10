@@ -7,7 +7,7 @@
     "type": "information",
     "license": "The GNU General Public License v3.0",
     "main_module" : "shodan_connector.py",
-    "app_version": "1.0.4",
+    "app_version": "1.0.5",
     "utctime_updated": "2016-05-26T04:20:36.000000Z",
     "product_vendor": "Shodan",
     "product_name": "Shodan",
@@ -55,14 +55,234 @@
           "title": "Shodan IP Details"
         },
         "output": [
+          {
+            "data_path": "action_result.parameter.ip",
+            "data_type": "string",
+            "contains": [
+              "ip"
+            ],
+            "column_name": "IP Address",
+            "column_order": 0
+          },
+          {
+            "data_path": "action_result.data.*.os",
+            "data_type": "string"
+          },
+          {
+            "data_path": "action_result.data.*.opts",
+            "data_type": "string"
+          },
+          {
+            "data_path": "action_result.data.*.domains.*.",
+            "data_type": "string"
+          },
+          {
+            "data_path": "action_result.data.*.deprecated.html.eol",
+            "data_type": "string"
+          },
+          {
+            "data_path": "action_result.data.*.deprecated.html.new",
+            "data_type": "string"
+          },
+          {
+            "data_path": "action_result.data.*.deprecated.title.eol",
+            "data_type": "string"
+          },
+          {
+            "data_path": "action_result.data.*.deprecated.title.new",
+            "data_type": "string"
+          },
+          {
+            "data_path": "action_result.data.*.deprecated.opts.pem.eol",
+            "data_type": "string"
+          },
+          {
+            "data_path": "action_result.data.*.deprecated.opts.pem.new",
+            "data_type": "string"
+          },
+          {
+            "data_path": "action_result.data.*.deprecated.opts.robots.eol",
+            "data_type": "string"
+          },
+          {
+            "data_path": "action_result.data.*.deprecated.opts.robots.new",
+            "data_type": "string"
+          },
+          {
+            "data_path": "action_result.data.*.deprecated.opts.sitemap.eol",
+            "data_type": "string"
+          },
+          {
+            "data_path": "action_result.data.*.deprecated.opts.sitemap.new",
+            "data_type": "string"
+          },
+          {
+            "data_path": "action_result.data.*.html",
+            "data_type": "string"
+          },
+          {
+            "data_path": "action_result.data.*.http.host",
+            "data_type": "string"
+          },
+          {
+            "data_path": "action_result.data.*.http.html",
+            "data_type": "string"
+          },
+          {
+            "data_path": "action_result.data.*.http.title",
+            "data_type": "string"
+          },
+          {
+            "data_path": "action_result.data.*.http.robots",
+            "data_type": "string"
+          },
+          {
+            "data_path": "action_result.data.*.http.server",
+            "data_type": "string"
+          },
+          {
+            "data_path": "action_result.data.*.http.location",
+            "data_type": "string"
+          },
+          {
+            "data_path": "action_result.data.*.http.html_hash",
+            "data_type": "numeric"
+          },
+          {
+            "data_path": "action_result.data.*.http.redirects.*.data",
+            "data_type": "string"
+          },
+          {
+            "data_path": "action_result.data.*.http.redirects.*.host",
+            "data_type": "string"
+          },
+          {
+            "data_path": "action_result.data.*.http.redirects.*.location",
+            "data_type": "string"
+          },
             {
-              "data_path": "action_result.parameter.ip",
-              "data_type": "string",
-              "contains": [
-                "ip"
-              ],
-              "column_name": "IP Address",
-              "column_order": 0
+              "data_path": "action_result.data.*.ssl.cert.issued",
+              "data_type": "string"
+            },
+            {
+              "data_path": "action_result.data.*.ssl.cert.issuer.C",
+              "data_type": "string"
+            },
+            {
+              "data_path": "action_result.data.*.ssl.cert.issuer.O",
+              "data_type": "string"
+            },
+            {
+              "data_path": "action_result.data.*.ssl.cert.issuer.CN",
+              "data_type": "string"
+            },
+            {
+              "data_path": "action_result.data.*.ssl.cert.issuer.OU",
+              "data_type": "string"
+            },
+            {
+              "data_path": "action_result.data.*.ssl.cert.pubkey.bits",
+              "data_type": "numeric"
+            },
+            {
+              "data_path": "action_result.data.*.ssl.cert.pubkey.type",
+              "data_type": "string"
+            },
+            {
+              "data_path": "action_result.data.*.ssl.cert.serial",
+              "data_type": "numeric"
+            },
+            {
+              "data_path": "action_result.data.*.ssl.cert.expired",
+              "data_type": "boolean"
+            },
+            {
+              "data_path": "action_result.data.*.ssl.cert.expires",
+              "data_type": "string"
+            },
+            {
+              "data_path": "action_result.data.*.ssl.cert.sig_alg",
+              "data_type": "string"
+            },
+            {
+              "data_path": "action_result.data.*.ssl.cert.subject.C",
+              "data_type": "string"
+            },
+            {
+              "data_path": "action_result.data.*.ssl.cert.subject.L",
+              "data_type": "string"
+            },
+            {
+              "data_path": "action_result.data.*.ssl.cert.subject.O",
+              "data_type": "string"
+            },
+            {
+              "data_path": "action_result.data.*.ssl.cert.subject.CN",
+              "data_type": "string"
+            },
+            {
+              "data_path": "action_result.data.*.ssl.cert.subject.OU",
+              "data_type": "string"
+            },
+            {
+              "data_path": "action_result.data.*.ssl.cert.subject.ST",
+              "data_type": "string"
+            },
+            {
+              "data_path": "action_result.data.*.ssl.cert.version",
+              "data_type": "numeric"
+            },
+            {
+              "data_path": "action_result.data.*.ssl.cert.extensions.*.data",
+              "data_type": "string"
+            },
+            {
+              "data_path": "action_result.data.*.ssl.cert.extensions.*.name",
+              "data_type": "string"
+            },
+            {
+              "data_path": "action_result.data.*.ssl.cert.extensions.*.critical",
+              "data_type": "boolean"
+            },
+            {
+              "data_path": "action_result.data.*.ssl.cert.fingerprint.sha1",
+              "data_type": "string"
+            },
+            {
+              "data_path": "action_result.data.*.ssl.cert.fingerprint.sha256",
+              "data_type": "string"
+            },
+            {
+              "data_path": "action_result.data.*.ssl.chain.*.",
+              "data_type": "string"
+            },
+            {
+              "data_path": "action_result.data.*.ssl.cipher.bits",
+              "data_type": "numeric"
+            },
+            {
+              "data_path": "action_result.data.*.ssl.cipher.name",
+              "data_type": "string"
+            },
+            {
+              "data_path": "action_result.data.*.ssl.cipher.version",
+              "data_type": "string"
+            },
+            {
+              "data_path": "action_result.data.*.ssl.tlsext.*.id",
+              "data_type": "numeric"
+            },
+            {
+              "data_path": "action_result.data.*.ssl.tlsext.*.name",
+              "data_type": "string"
+            },
+            {
+              "data_path": "action_result.data.*.ssl.versions.*.",
+              "data_type": "string"
+            },
+            {
+              "data_path": "action_result.data.*.title",
+              "data_type": "string"
             },
             {
               "data_path": "action_result.data.*.transport",
@@ -76,6 +296,10 @@
               "contains": ["port"],
               "column_name": "Port",
               "column_order": 3
+            },
+            {
+              "data_path": "action_result.data.*._shodan.options",
+              "data_type": "string"
             },
             {
               "data_path": "action_result.data.*._shodan.module",
@@ -111,7 +335,7 @@
               "data_type": "numeric"
             },
             {
-              "data_path": "action_result.summary.hostnames",
+              "data_path": "action_result.summary.hostnames.*.",
               "data_type": "string"
             },
             {
@@ -145,14 +369,24 @@
               "data_type": "string"
             },
             {
-              "data_path": "action_result.data.*.location.latitude",
-              "data_type": "numeric",
-              "map_info": "latitude"
+              "data_path": "action_result.data.*.location.city",
+              "data_type": "string"
             },
             {
-              "data_path": "action_result.data.*.location.longitude",
-              "data_type": "numeric",
-              "map_info": "longitude"
+              "data_path": "action_result.data.*.location.area_code",
+              "data_type": "numeric"
+            },
+            {
+              "data_path": "action_result.data.*.location.postal_code",
+              "data_type": "string"
+            },
+            {
+              "data_path": "action_result.data.*.location.dma_code",
+              "data_type": "numeric"
+            },
+            {
+              "data_path": "action_result.data.*.location.region_code",
+              "data_type": "string"
             },
             {
               "data_path": "action_result.data.*.location.country_code",
@@ -161,6 +395,18 @@
             {
               "data_path": "action_result.data.*.location.country_name",
               "data_type": "string"
+            },
+            {
+              "data_path": "action_result.data.*.location.country_code3",
+              "data_type": "string"
+            },
+            {
+              "data_path": "action_result.data.*.location.latitude",
+              "data_type": "numeric"
+            },
+            {
+              "data_path": "action_result.data.*.location.longitude",
+              "data_type": "numeric"
             },
             {
               "data_path": "action_result.status",
@@ -220,6 +466,22 @@
             "column_order": 1
           },
           {
+            "data_path": "action_result.data.*.product",
+            "data_type": "string"
+          },
+          {
+            "data_path": "action_result.data.*.cpe",
+            "data_type": "string"
+          },
+          {
+            "data_path": "action_result.data.*.device_type",
+            "data_type": "string"
+          },
+          {
+            "data_path": "action_result.data.*.os",
+            "data_type": "string"
+          },
+          {
             "data_path": "action_result.data.*.transport",
             "data_type": "string",
             "column_name": "Protocol",
@@ -256,6 +518,166 @@
             "data_type": "string",
             "column_name": "Time Discovered",
             "column_order": 7
+          },
+          {
+            "data_path": "action_result.data.*.ssl.cert.issued",
+            "data_type": "string"
+          },
+          {
+            "data_path": "action_result.data.*.ssl.cert.issuer.C",
+            "data_type": "string"
+          },
+          {
+            "data_path": "action_result.data.*.ssl.cert.issuer.O",
+            "data_type": "string"
+          },
+          {
+            "data_path": "action_result.data.*.ssl.cert.issuer.CN",
+            "data_type": "string"
+          },
+          {
+            "data_path": "action_result.data.*.ssl.cert.issuer.OU",
+            "data_type": "string"
+          },
+          {
+            "data_path": "action_result.data.*.ssl.cert.pubkey.bits",
+            "data_type": "numeric"
+          },
+          {
+            "data_path": "action_result.data.*.ssl.cert.pubkey.type",
+            "data_type": "string"
+          },
+          {
+            "data_path": "action_result.data.*.ssl.cert.serial",
+            "data_type": "numeric"
+          },
+          {
+            "data_path": "action_result.data.*.ssl.cert.expired",
+            "data_type": "boolean"
+          },
+          {
+            "data_path": "action_result.data.*.ssl.cert.expires",
+            "data_type": "string"
+          },
+          {
+            "data_path": "action_result.data.*.ssl.cert.sig_alg",
+            "data_type": "string"
+          },
+          {
+            "data_path": "action_result.data.*.ssl.cert.subject.C",
+            "data_type": "string"
+          },
+          {
+            "data_path": "action_result.data.*.ssl.cert.subject.L",
+            "data_type": "string"
+          },
+          {
+            "data_path": "action_result.data.*.ssl.cert.subject.O",
+            "data_type": "string"
+          },
+          {
+            "data_path": "action_result.data.*.ssl.cert.subject.CN",
+            "data_type": "string"
+          },
+          {
+            "data_path": "action_result.data.*.ssl.cert.subject.OU",
+            "data_type": "string"
+          },
+          {
+            "data_path": "action_result.data.*.ssl.cert.subject.ST",
+            "data_type": "string"
+          },
+          {
+            "data_path": "action_result.data.*.ssl.cert.version",
+            "data_type": "numeric"
+          },
+          {
+            "data_path": "action_result.data.*.ssl.cert.extensions.*.data",
+            "data_type": "string"
+          },
+          {
+            "data_path": "action_result.data.*.ssl.cert.extensions.*.name",
+            "data_type": "string"
+          },
+          {
+            "data_path": "action_result.data.*.ssl.cert.extensions.*.critical",
+            "data_type": "boolean"
+          },
+          {
+            "data_path": "action_result.data.*.ssl.cert.fingerprint.sha1",
+            "data_type": "string"
+          },
+          {
+            "data_path": "action_result.data.*.ssl.cert.fingerprint.sha256",
+            "data_type": "string"
+          },
+          {
+            "data_path": "action_result.data.*.ssl.chain.*.",
+            "data_type": "string"
+          },
+          {
+            "data_path": "action_result.data.*.ssl.cipher.bits",
+            "data_type": "numeric"
+          },
+          {
+            "data_path": "action_result.data.*.ssl.cipher.name",
+            "data_type": "string"
+          },
+          {
+            "data_path": "action_result.data.*.ssl.cipher.version",
+            "data_type": "string"
+          },
+          {
+            "data_path": "action_result.data.*.ssl.tlsext.*.id",
+            "data_type": "numeric"
+          },
+          {
+            "data_path": "action_result.data.*.ssl.tlsext.*.name",
+            "data_type": "string"
+          },
+          {
+            "data_path": "action_result.data.*.ssl.versions.*.",
+            "data_type": "string"
+          },
+          {
+            "data_path": "action_result.data.*.deprecated.html.eol",
+            "data_type": "string"
+          },
+          {
+            "data_path": "action_result.data.*.deprecated.html.new",
+            "data_type": "string"
+          },
+          {
+            "data_path": "action_result.data.*.deprecated.title.eol",
+            "data_type": "string"
+          },
+          {
+            "data_path": "action_result.data.*.deprecated.title.new",
+            "data_type": "string"
+          },
+          {
+            "data_path": "action_result.data.*.deprecated.opts.pem.eol",
+            "data_type": "string"
+          },
+          {
+            "data_path": "action_result.data.*.deprecated.opts.pem.new",
+            "data_type": "string"
+          },
+          {
+            "data_path": "action_result.data.*.deprecated.opts.robots.eol",
+            "data_type": "string"
+          },
+          {
+            "data_path": "action_result.data.*.deprecated.opts.robots.new",
+            "data_type": "string"
+          },
+          {
+            "data_path": "action_result.data.*.deprecated.opts.sitemap.eol",
+            "data_type": "string"
+          },
+          {
+            "data_path": "action_result.data.*.deprecated.opts.sitemap.new",
+            "data_type": "string"
           },
           {
             "data_path": "action_result.data.*.total",
@@ -330,24 +752,16 @@
             "data_type": "string"
           },
           {
-            "data_path": "action_result.data.*.location.dma_code",
-            "data_type": "numeric"
-          },
-          {
-            "data_path": "action_result.data.*.location.latitude",
-            "data_type": "numeric"
-          },
-          {
             "data_path": "action_result.data.*.location.area_code",
-            "data_type": "numeric"
-          },
-          {
-            "data_path": "action_result.data.*.location.longitude",
             "data_type": "numeric"
           },
           {
             "data_path": "action_result.data.*.location.postal_code",
             "data_type": "string"
+          },
+          {
+            "data_path": "action_result.data.*.location.dma_code",
+            "data_type": "numeric"
           },
           {
             "data_path": "action_result.data.*.location.region_code",
@@ -364,6 +778,14 @@
           {
             "data_path": "action_result.data.*.location.country_code3",
             "data_type": "string"
+          },
+          {
+            "data_path": "action_result.data.*.location.latitude",
+            "data_type": "numeric"
+          },
+          {
+            "data_path": "action_result.data.*.location.longitude",
+            "data_type": "numeric"
           },
           {
             "data_path": "action_result.data.*.hostnames.*.",
