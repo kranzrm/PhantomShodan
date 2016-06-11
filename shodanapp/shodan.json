@@ -6,9 +6,9 @@
     "package_name": "phantom_shodan",
     "type": "information service",
     "license": "The GNU General Public License v3.0",
-    "main_module" : "shodan_connector.pyc",
-    "app_version": "1.0",
-    "utctime_updated": "2016-05-15T04:20:36.000000Z",
+    "main_module" : "shodan_connector.py",
+    "app_version": "1.0.2",
+    "utctime_updated": "2016-05-26T04:20:36.000000Z",
     "product_vendor": "Shodan.io",
     "product_name": "Shodan.io",
     "product_version_regex": ".*",
@@ -104,10 +104,7 @@
             },
             {
               "data_path": "action_result.data.*.ip",
-              "data_type": "string",
-              "contains": [
-                "ip"
-              ]
+              "data_type": "string"
             },
             {
               "data_path": "action_result.summary.Results",
@@ -152,7 +149,8 @@
             {
               "data_path": "action_result.data.*.ip_str",
               "data_type": "string",
-              "map_info": "name"
+              "map_info": "name",
+               "contains": ["ip"]
             },
             {
               "data_path": "action_result.data.*._shodan.crawler",

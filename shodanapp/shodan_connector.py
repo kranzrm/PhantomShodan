@@ -12,15 +12,9 @@ from phantom.action_result import ActionResult
 from shodan_consts import *
 
 import simplejson as json
-import datetime
-import urllib
+import requests
 
-
-def _json_fallback(obj):
-    if isinstance(obj, datetime.datetime):
-        return obj.isoformat()
-    else:
-        return obj
+requests.packages.urllib3.disable_warnings()
 
 
 # Define the App Class
@@ -29,130 +23,136 @@ class ShodanConnector(BaseConnector):
     ACTION_ID_SEARCH_DOMAIN = "query_domain"
     ACTION_ID_SEARCH_IP = "query_ip"
 
-    def _query_shodan(self, url, action_result):
-        # TODO: Handle connection errors more gracefuly
+    def __init__(self):
+
+        super(ShodanConnector, self).__init__()
+
+    def _query_shodan(self, endpoint, result, params={}):
+
+        config = self.get_config()
+
+        # Get the API Key, it's marked as required in the json, so the platform/BaseConnector will fail if
+        # not found in the input asset config
+        api_key = config[SHODAN_JSON_APIKEY]
+
+        params.update({'key': api_key})
+
+        url = SHODAN_BASE_URL + endpoint
+
         try:
-            f = urllib.urlopen(url)
-            retstr = f.read()
-            self.debug_print("retstr", retstr)
-            resp = json.loads(retstr)
+            r = requests.get(url, params=params)
         except Exception as e:
-            self.set_status(phantom.APP_ERROR, SHODAN_ERR_SERVER_CONNECTION, e)
-            self.append_to_message("ERROR")
-            # return self.set_status_save_progress(phantom.APP_SUCCESS, SHODAN_ERR_API_TEST)
-            return False
+            return (result.set_status(phantom.APP_ERROR, SHODAN_ERR_SERVER_CONNECTION, e), None)
+
+        # The result object can be either self (i.e. BaseConnector) or ActionResult
+        if (hasattr(result, 'add_debug_data')):
+            result.add_debug_data({'r_text': r.text if r else 'r is None'})
+
+        # shodan gives back a json even in case of error, so parse the json before
+        # checking for the http
+        try:
+            resp = r.json()
+        except Exception as e:
+            return (result.set_status(phantom.APP_ERROR, SHODAN_ERR_RESPONSE_IS_NOT_JSON, e), None)
 
         if 'error' in resp:
-            self.append_to_message(resp['error'])
-            action_result.update_summary({'Results': 0, 'Error': resp['error']})
+            return (result.set_status(phantom.APP_ERROR, resp['error']), resp)
 
-        return resp
+        # Usually should not come here _and_ has encountered an HTTP error, but still look for errors
+        if (r.status_code != requests.codes.ok):  # pylint: disable=E1101
+            return (result.set_status(phantom.APP_ERROR, "REST Api Call returned error, status_code: {0}, data: {1}".format(r.status_code, r.text)), r.text)
+
+        # Success, return the data retrieved
+        return (phantom.APP_SUCCESS, resp)
 
     def _test_connectivity(self, param):
 
-        config = self.get_config()
-        # Get and test the API Key
-        api_key = config.get(SHODAN_JSON_APIKEY)
-        if (not api_key):
-            self.save_progress("No API Key set")
-            return self.get_status()
-
-        # Add an action result to the App Run
-        action_result = ActionResult()
-        self.add_action_result(action_result)
         self.save_progress("Testing Shodan API Key")
 
-        try:
-            qp = urllib.urlencode({'key': api_key})
-            f = urllib.urlopen(SHODAN_BASE_URL + "api-info?%s" % qp)
-            retstr = f.read()
-            self.debug_print("retstr", retstr)
-            resp = json.loads(retstr)
-            action_result.add_data(resp)
+        ret_val, resp = self._query_shodan('/api-info', self)
 
-        except Exception as e:
-            self.set_status(phantom.APP_ERROR, SHODAN_ERR_SERVER_CONNECTION, e)
+        if (not ret_val):
             self.append_to_message(SHODAN_ERR_API_TEST)
-            return self.set_status_save_progress(phantom.APP_SUCCESS, SHODAN_ERR_API_TEST)
+            return self.get_status()
 
         return self.set_status_save_progress(phantom.APP_SUCCESS, SHODAN_SUCC_API_TEST)
 
     def _handle_query_domain(self, param):
 
-        # Get the config
-        config = self.get_config()
-        self.debug_print("param", param)
-        api_key = config.get(SHODAN_JSON_APIKEY)
-
         # Add an action result to the App Run
-        action_result = ActionResult(dict(param))
-        self.add_action_result(action_result)
+        action_result = self.add_action_result(ActionResult(dict(param)))
         self.save_progress("Querying Domain")
 
         # Setup Rest Query
         target = param[SHODAN_JSON_DOMAIN]
-        qp = urllib.urlencode({'key': api_key, 'query': "hostname:{0}".format(target)})
-        rest_url = SHODAN_BASE_URL + "shodan/host/search?%s" % qp
-        shodan_response = self._query_shodan(rest_url, action_result)
+        params = {'query': "hostname:{0}".format(target)}
+
+        endpoint = "shodan/host/search"
+
+        ret_val, shodan_response = self._query_shodan(endpoint, action_result, params)
+
+        if (not ret_val):
+            return action_result.get_status()
+
+        if (not shodan_response):
+            # There was an error, no results
+            action_result.append_to_message(SHODAN_ERR_QUERY)
+            return action_result.get_status()
+
         self.debug_print('resp', shodan_response)
 
-        # Handle response error conditions
-        if shodan_response is False:
-            # There was an error, no results
-            self.append_to_message(SHODAN_ERR_QUERY)
-            return self.set_status_save_progress(phantom.APP_ERROR, SHODAN_ERR_QUERY)
-        elif 'error' in shodan_response:
-            return self.set_status_save_progress(phantom.APP_SUCCESS, "Shodan Error")
+        matches = shodan_response.get('matches', [])
 
-        for match in shodan_response['matches']:
+        for match in matches:
             action_result.add_data(match)
 
+        # Create the summary as a normal dictionary, so that parsing it from the playbooks is easy.
+        # The BaseConnector does the job of Capitalizing the dictionary keys to display them properly
+        # in the UI.
         summary = {
-            'Results': str(len(shodan_response['matches']))
+            'results': len(matches)
         }
+
         action_result.update_summary(summary)
-        action_result.set_status(phantom.APP_SUCCESS)
+
         return self.set_status_save_progress(phantom.APP_SUCCESS, "Query Successfull")
 
     def _handle_query_ip(self, param):
 
-        # Get the config
-        config = self.get_config()
-        self.debug_print("param", param)
-        api_key = config.get(SHODAN_JSON_APIKEY)
-
         # Add an action result to the App Run
-        action_result = ActionResult(dict(param))
-        self.add_action_result(action_result)
+        action_result = self.add_action_result(ActionResult(dict(param)))
         self.save_progress("Querying IP")
 
         # Setup Rest Query
         target = param[SHODAN_JSON_IP]
-        qp = urllib.urlencode({'key': api_key})
-        rest_url = SHODAN_BASE_URL + "shodan/host/{0}?{1}".format(target, qp)
-        shodan_response = self._query_shodan(rest_url, action_result)
+        endpoint = "shodan/host/{0}".format(target)
 
-        # Handle response error conditions
-        if shodan_response is False:
+        ret_val, shodan_response = self._query_shodan(endpoint, action_result)
+
+        if (not ret_val):
+            return action_result.get_status()
+
+        if (not shodan_response):
             # There was an error, no results
-            self.append_to_message(SHODAN_ERR_QUERY)
-            return self.set_status_save_progress(phantom.APP_ERROR, SHODAN_ERR_QUERY)
-        elif 'error' in shodan_response:
-            return self.set_status_save_progress(phantom.APP_SUCCESS, "Shodan Error")
+            action_result.append_to_message(SHODAN_ERR_QUERY)
+            return action_result.get_status()
 
         # Sanitize/Add data and summary
-        for record in shodan_response['data']:
+        data = shodan_response.get('data', [])
+        for record in data:
             action_result.add_data(record)
 
+        # Create the summary as a normal dictionary, it helps in parsing it from the playbooks
+        # easier. The BaseConnector does the job of Capitalizing the dictionary
         summary = {
-            'Results': str(len(shodan_response['data'])),
-            'Country': shodan_response['country_name'],
-            'Open Ports': ", ".join(str(x) for x in shodan_response['ports']),
-            'Hostnames': ", ".join(shodan_response['hostnames'])
+            'results': len(data),
+            'country': shodan_response.get('country_name', ''),
+            'open_ports': ", ".join(str(x) for x in shodan_response.get('ports', [])),
+            'hostnames': ", ".join(shodan_response.get('hostnames', []))
         }
+
         action_result.update_summary(summary)
 
-        action_result.set_status(phantom.APP_SUCCESS)
         return self.set_status_save_progress(phantom.APP_SUCCESS, "Query Successfull")
 
     def handle_action(self, param):
