@@ -103,6 +103,21 @@ class ShodanConnector(BaseConnector):
 
         matches = shodan_response.get('matches', [])
 
+        if (not matches):
+            self.save_progress("Did not find any info on the domain, doing a complete search")
+            params = {'query': "{0}".format(target)}
+            ret_val, shodan_response = self._query_shodan(endpoint, action_result, params)
+
+            if (not ret_val):
+                return action_result.get_status()
+
+            if (not shodan_response):
+                # There was an error, no results
+                action_result.append_to_message(SHODAN_ERR_QUERY)
+                return action_result.get_status()
+
+            matches = shodan_response.get('matches', [])
+
         for match in matches:
             action_result.add_data(match)
 
@@ -115,7 +130,7 @@ class ShodanConnector(BaseConnector):
 
         action_result.update_summary(summary)
 
-        return self.set_status_save_progress(phantom.APP_SUCCESS, "Query Successfull")
+        return action_result.set_status(phantom.APP_SUCCESS)
 
     def _handle_query_ip(self, param):
 
@@ -144,16 +159,21 @@ class ShodanConnector(BaseConnector):
 
         # Create the summary as a normal dictionary, it helps in parsing it from the playbooks
         # easier. The BaseConnector does the job of Capitalizing the dictionary
+        open_ports = shodan_response.get('ports')
+        open_ports = ", ".join(str(x) for x in shodan_response.get('ports', [])) if open_ports else None
+
+        hostnames = shodan_response.get('hostnames')
+        hostnames = ", ".join(str(x) for x in shodan_response.get('hostnames', [])) if hostnames else None
+
         summary = {
             'results': len(data),
             'country': shodan_response.get('country_name', ''),
-            'open_ports': ", ".join(str(x) for x in shodan_response.get('ports', [])),
-            'hostnames': ", ".join(shodan_response.get('hostnames', []))
-        }
+            'open_ports': open_ports,
+            'hostnames': hostnames}
 
         action_result.update_summary(summary)
 
-        return self.set_status_save_progress(phantom.APP_SUCCESS, "Query Successfull")
+        return action_result.set_status(phantom.APP_SUCCESS)
 
     def handle_action(self, param):
 
