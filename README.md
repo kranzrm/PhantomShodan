@@ -3,6 +3,7 @@
 This App for [Phantom security orchestrator](https://www.phantom.us/product.html) provides access to
 information from [Shodan.io](https://www.shodan.io).
 
+<img src="shodanapp/shodan_logo.png" width="400">
 
 ## Suggested Use-Cases
 
